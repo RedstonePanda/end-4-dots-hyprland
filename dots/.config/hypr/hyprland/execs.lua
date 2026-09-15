@@ -22,4 +22,20 @@ hl.on("hyprland.start", function ()
 
     -- Cursor
     hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
+
+    -- Load plugins on startup
+    hl.exec_cmd("hyprpm reload -n")
+    
+    -- CUSTOM
+    hl.exec_cmd("sleep 10s && rog-control-center")
+    hl.exec_cmd("sleep 10s && protonvpn-app")
+    hl.exec_cmd("sleep 10s && syncthingtray-qt6")
+    hl.exec_cmd("sleep 10s && tailscale systray")
+    hl.exec_cmd("sleep 10s && kdeconnect-indicator")
+
+    hl.exec_cmd("sleep 10s && tipp10")
+    hl.exec_cmd("sleep 10s && libreoffice")
+
+    hl.exec_cmd("sleep 10s && glava")
 end)
+

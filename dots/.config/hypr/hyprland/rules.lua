@@ -167,3 +167,11 @@ hl.layer_rule({ match = { namespace = "quickshell:wTaskView" }, no_anim = true})
 
 -- Launchers need to be FAST
 hl.layer_rule({ match = { namespace = "gtk4-layer-shell" }, no_anim = true})
+
+
+-- Run GLava as background (uses hyprwinwrap)
+if hl.plugin.hyprwinwrap ~= nil then
+    hl.plugin.hyprwinwrap.window({
+        class = "GLava"
+    })
+end

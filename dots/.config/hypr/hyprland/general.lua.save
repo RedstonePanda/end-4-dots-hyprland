@@ -3,7 +3,7 @@ hl.monitor({
     output = "",
     mode = "preferred",
     position = "auto",
-    scale = "1"
+q    scale = "1"
 })
 
 hl.gesture({
@@ -47,11 +47,11 @@ hl.config({
     },
     general = {
         -- Gaps and border
-        gaps_in = 2,
-        gaps_out = 4,
+        gaps_in = 4,
+        gaps_out = 5,
         gaps_workspaces = 50,
 
-        border_size = 2,
+        border_size = 1,
 
         col = {
             active_border = "rgba(0DB7D455)",
@@ -60,7 +60,7 @@ hl.config({
         resize_on_border = true,
 
         no_focus_fallback = true,
---        allow_tearing = true, -- This just allows the `immediate` window rule to work
+        allow_tearing = true, -- This just allows the `immediate` window rule to work
         snap = {
             enabled = true,
             window_gap = 4,
@@ -265,7 +265,7 @@ hl.config({
         touchpad = {
             natural_scroll = true,
             disable_while_typing = true,
-            clickfinger_behavior = false,
+            clickfinger_behavior = true,
             scroll_factor = 0.7
         }
     },

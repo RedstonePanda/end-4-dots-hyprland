@@ -21,16 +21,16 @@ hl.bind("SUPER_L", hl.dsp.global("quickshell:workspaceNumber"),
 hl.bind("SUPER_R", hl.dsp.global("quickshell:workspaceNumber"),
     { ignore_mods = true, transparent = true, release = true })
 hl.bind("SUPER + Tab", hl.dsp.global("quickshell:overviewWorkspacesToggle"), { description = "Shell: Toggle overview" })
-hl.bind("SUPER + V", hl.dsp.global("quickshell:overviewClipboardToggle"))
+hl.bind("SUPER + SHIFT + V", hl.dsp.global("quickshell:overviewClipboardToggle"))
 hl.bind("SUPER + Period", hl.dsp.global("quickshell:overviewEmojiToggle"))
 hl.bind("SUPER + A", hl.dsp.global("quickshell:sidebarLeftToggle"), { description = "Shell: Toggle left sidebar" })
 hl.bind("SUPER + ALT + A", hl.dsp.global("quickshell:sidebarLeftToggleDetach"))
-hl.bind("SUPER + B", hl.dsp.global("quickshell:sidebarLeftToggle"))
+--hl.bind("SUPER + B", hl.dsp.global("quickshell:sidebarLeftToggle"))
 hl.bind("SUPER + O", hl.dsp.global("quickshell:sidebarLeftToggle"))
 hl.bind("SUPER + N", hl.dsp.global("quickshell:sidebarRightToggle"), { description = "Shell: Toggle right sidebar" })
-hl.bind("SUPER + Slash", hl.dsp.global("quickshell:cheatsheetToggle"), { description = "Shell: Toggle cheatsheet" })
+hl.bind("SUPER + CTRL + 7", hl.dsp.global("quickshell:cheatsheetToggle"), { description = "Shell: Toggle cheatsheet" })
 hl.bind("SUPER + K", hl.dsp.global("quickshell:oskToggle"), { description = "Shell: Toggle on-screen keyboard" })
-hl.bind("SUPER + M", hl.dsp.global("quickshell:mediaControlsToggle"), { description = "Shell: Toggle media controls" })
+--hl.bind("SUPER + M", hl.dsp.global("quickshell:mediaControlsToggle"), { description = "Shell: Toggle media controls" })
 hl.bind("SUPER + G", hl.dsp.global("quickshell:overlayToggle"), { description = "Shell: Toggle widget overlay" })
 hl.bind("CTRL + ALT + Delete", hl.dsp.global("quickshell:sessionToggle"), { description = "Shell: Toggle session menu" })
 hl.bind("SUPER + J", hl.dsp.global("quickshell:barToggle"), { description = "Shell: Toggle bar" })
@@ -59,7 +59,7 @@ hl.bind("CTRL + SUPER + P", hl.dsp.global("quickshell:panelFamilyCycle"), { desc
 
 --##! Utilities
 --# Screenshot, Record, OCR, Color picker, Clipboard history
-hl.bind("SUPER + V", hl.dsp.exec_cmd(
+hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(
         qsIsAlive .. " || pkill fuzzel || cliphist list | fuzzel --match-mode fzf --dmenu | cliphist decode | wl-copy"),
     { description = "Utilities: Clipboard history >> clipboard" })
 hl.bind("SUPER + Period", hl.dsp.exec_cmd(
@@ -186,7 +186,7 @@ hl.bind("SUPER + SHIFT + ALT + Q", hl.dsp.exec_cmd("hyprctl kill"), { descriptio
 hl.bind("SUPER + Semicolon", hl.dsp.layout("splitratio -0.1"), { repeating = true })
 hl.bind("SUPER + Apostrophe", hl.dsp.layout("splitratio +0.1"), { repeating = true })
 --# Positioning mode
-hl.bind("SUPER + ALT + Space", hl.dsp.window.float({ action = "toggle" }), { description = "Window: Float/Tile" })
+hl.bind("SUPER + V", hl.dsp.window.float({ action = "toggle" }), { description = "Window: Float/Tile" })
 hl.bind("SUPER + D", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }),
     { description = "Window: Maximize" })
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }),
@@ -197,22 +197,22 @@ hl.bind("SUPER + P", hl.dsp.window.pin(), { description = "Window: Pin" })
 
 --#/# bind = SUPER+ALT, Hash,, -- Send to workspace -- (1, 2, 3,...)
 for i = 1, 10 do
-    hl.bind("SUPER + ALT + " .. (i % 10), function()
+    hl.bind("SUPER + SHIFT + " .. (i % 10), function()
         hl.dispatch(hl.dsp.window.move({ workspace = workspace_in_group(i), follow = false }))
     end, { description = "Window: Send to workspace " .. i })
 end
 --# We also use raw keycodes because some keyboard layouts register number keys as different chars. The codes can be verified with `wev`
--- for i = 1, 10 do
---     local numberkey = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
---     hl.bind("SUPER + ALT + code:" .. numberkey[i], function()
---         hl.dispatch(hl.dsp.window.move({ workspace = workspace_in_group(i), follow = false }))
---     end)
--- end
---# keypad numbers
+for i = 1, 10 do
+    local numberkey = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
+    hl.bind("SUPER + ALT + code:" .. numberkey[i], function()
+        hl.dispatch(hl.dsp.window.move({ workspace = workspace_in_group(i), follow = false }))
+    end)
+end
+--# keypad numbers  ----MODIFIED to move to exact workspace if a Window is at workspace 21473523411
 for i = 1, 10 do
     local numpadkey = { 87, 88, 89, 83, 84, 85, 79, 80, 81, 90 }
-    hl.bind("SUPER + ALT + code:" .. numpadkey[i], function()
-        hl.dispatch(hl.dsp.window.move({ workspace = workspace_in_group(i), follow = false }))
+    hl.bind("SUPER + SHIFT + code:" .. numpadkey[i], function()
+        hl.dispatch(hl.dsp.window.move({ workspace = i, follow = false }))
     end)
 end
 
@@ -247,21 +247,21 @@ hl.bind("CTRL + SUPER + S", hl.dsp.workspace.toggle_special("special"))
 --#/# bind = SUPER, Hash,, -- Focus workspace -- (1, 2, 3,...)
 for i = 1, 10 do
     hl.bind("SUPER + " .. (i % 10), function()
-        hl.dispatch(hl.dsp.focus({ workspace = workspace_in_group(i) }))
+        hl.dispatch(hl.dsp.focus({ workspace = workspace_in_group(i), on_current_monitor = true}))
     end, { description = "Workspace: Focus " .. i })
 end
 --# We also use raw keycodes because some keyboard layouts register number keys as different chars. The codes can be verified with `wev`
 for i = 1, 10 do
     local numberkey = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
     hl.bind("SUPER + code:" .. numberkey[i], function()
-        hl.dispatch(hl.dsp.focus({ workspace = workspace_in_group(i) }))
+        hl.dispatch(hl.dsp.focus({ workspace = workspace_in_group(i), on_current_monitor = true}))
     end)
 end
---# keypad numbers
+--# keypad numbers  ----MODIFIED to move to exact workspace if a Window is at workspace 21473523411
 for i = 1, 10 do
     local numpadkey = { 87, 88, 89, 83, 84, 85, 79, 80, 81, 90 }
     hl.bind("SUPER + code:" .. numpadkey[i], function()
-        hl.dispatch(hl.dsp.focus({ workspace = workspace_in_group(i) }))
+        hl.dispatch(hl.dsp.focus({ workspace = i , on_current_monitor = true}))
     end)
 end
 
@@ -357,3 +357,9 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd(taskManager), { description = "
 --# Cursed stuff
 --## Make window not amogus large
 hl.bind("CTRL + SUPER + Backslash", hl.dsp.window.resize({ x = 640, y = 480, "exact" }))
+
+
+--#####CUSTOM#####
+hl.bind("SUPER + B", hl.dsp.exec_cmd("/opt/zen-browser-bin/zen-bin --private-window"))
+
+hl.bind("mouse:275", hl.dsp.window.drag(), { mouse = true, description = "Window: Move" })
