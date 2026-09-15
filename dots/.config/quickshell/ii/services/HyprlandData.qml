@@ -99,7 +99,9 @@ Singleton {
         stdout: StdioCollector {
             id: clientsCollector
             onStreamFinished: {
-                root.windowList = JSON.parse(clientsCollector.text)
+		//Remove specified windows from overview
+		const ignoredWindows = ["GLava"];
+                root.windowList = JSON.parse(clientsCollector.text).filter(w => !ignoredWindows.includes(w.class));
                 let tempWinByAddress = {};
                 for (var i = 0; i < root.windowList.length; ++i) {
                     var win = root.windowList[i];
