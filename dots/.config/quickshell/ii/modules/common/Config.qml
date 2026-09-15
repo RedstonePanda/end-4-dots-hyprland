@@ -81,8 +81,8 @@ Singleton {
             property string panelFamily: "ii" // "ii", "waffle"
 
             property JsonObject policies: JsonObject {
-                property int ai: 1 // 0: No | 1: Yes | 2: Local
-                property int weeb: 1 // 0: No | 1: Open | 2: Closet
+                property int ai: 0 // 0: No | 1: Yes | 2: Local
+                property int weeb: 0 // 0: No | 1: Open | 2: Closet
             }
 
             property JsonObject ai: JsonObject {
@@ -182,7 +182,7 @@ Singleton {
                             property bool timeIndicators: true
                             property bool hourMarks: false
                             property bool dateInClock: true
-                            property bool constantlyRotate: false
+                            property bool constantlyRotate: true
                             property bool useSineCookie: false
                         }
                         property JsonObject digital: JsonObject {
@@ -262,14 +262,14 @@ Singleton {
                     property bool monochromeIcons: true
                     property int shown: 10
                     property bool showAppIcons: true
-                    property bool alwaysShowNumbers: false
+                    property bool alwaysShowNumbers: true
                     property int showNumberDelay: 300 // milliseconds
                     property list<string> numberMap: ["1", "2"] // Characters to show instead of numbers on workspace indicator
                     property bool useNerdFont: false
                 }
                 property JsonObject weather: JsonObject {
                     property bool enable: false
-                    property bool enableGPS: true // gps based location
+                    property bool enableGPS: false // gps based location
                     property string city: "" // When 'enableGPS' is false
                     property bool useUSCS: false // Instead of metric (SI) units
                     property int fetchInterval: 10 // minutes
@@ -293,7 +293,7 @@ Singleton {
             }
 
             property JsonObject calendar: JsonObject {
-                property string locale: "en-GB"
+                property string locale: "de-DE"
             }
 
             property JsonObject cheatsheet: JsonObject {
@@ -347,11 +347,11 @@ Singleton {
             }
 
             property JsonObject language: JsonObject {
-                property string ui: "auto" // UI language. "auto" for system locale, or specific language code like "zh_CN", "en_US"
+                property string ui: "de_DE" // UI language. "auto" for system locale, or specific language code like "zh_CN", "en_US"
                 property JsonObject translator: JsonObject {
                     property string engine: "auto" // Run `trans -list-engines` for available engines. auto should use google
                     property string targetLanguage: "auto" // Run `trans -list-all` for available languages
-                    property string sourceLanguage: "auto"
+                    property string sourceLanguage: "English"
                 }
             }
 
@@ -476,7 +476,7 @@ Singleton {
 
             property JsonObject search: JsonObject {
                 property int nonAppResultDelay: 30 // This prevents lagging when typing
-                property string engineBaseUrl: "https://www.google.com/search?q="
+                property string engineBaseUrl: "https://www.startpage.com/sp/search?query="
                 property list<string> excludedSites: ["quora.com", "facebook.com"]
                 property bool sloppy: false // Uses levenshtein distance based scoring instead of fuzzy sort. Very weird.
                 property JsonObject prefix: JsonObject {
@@ -540,7 +540,7 @@ Singleton {
                 }
 
                 property JsonObject quickSliders: JsonObject {
-                    property bool enable: false
+                    property bool enable: true
                     property bool showMic: false
                     property bool showVolume: true
                     property bool showBrightness: true
